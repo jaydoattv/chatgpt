@@ -1,0 +1,91 @@
+# Charakter-LoRA "mlnchar" (Milena, Gesicht + Körper in EINEM LoRA) auf Z-Image (Base).
+# Geprüft gegen ai-toolkit Commit 31ddc70 (20.09.2026, Stand auf dem Pod):
+# alle Schlüssel existieren in toolkit/config_modules.py bzw. im Z-Image-Modell.
+# Start:  cd /workspace/ai-toolkit && source /workspace/venvtrain/bin/activate
+#         python run.py /workspace/training/mlnchar_v1.yaml
+---
+job: extension
+config:
+  name: "mlnchar_v1"
+  process:
+    - type: "sd_trainer"
+      training_folder: "/workspace/training/output"
+      device: cuda:0
+      # Captions beginnen bereits mit "mlnchar"; ai-toolkit ergänzt es nur, wo es fehlt.
+      trigger_word: "mlnchar"
+      network:
+        type: "lora"
+        linear: 32
+        linear_alpha: 32
+      save:
+        dtype: bf16
+        save_every: 250
+        max_step_saves_to_keep: 20   # alle Zwischenstände behalten, der beste wird per Auge gewählt
+      datasets:
+        # Gesicht: Nahaufnahmen/Kopf-Schulter, Captions mit "close-up portrait"
+        - folder_path: "/workspace/datensatz_v1/gesicht"
+          caption_ext: "txt"
+          caption_dropout_rate: 0.05
+          shuffle_tokens: false
+          cache_latents_to_disk: true
+          resolution: [768, 1024]
+          num_repeats: 1
+        # Körper: kopflose Bilder, Captions mit "head out of frame"
+        - folder_path: "/workspace/datensatz_v1/koerper"
+          caption_ext: "txt"
+          caption_dropout_rate: 0.05
+          shuffle_tokens: false
+          cache_latents_to_disk: true
+          resolution: [768, 1024]
+          num_repeats: 1
+      train:
+        batch_size: 1
+        steps: 4000
+        gradient_accumulation: 1
+        train_unet: true
+        train_text_encoder: false
+        gradient_checkpointing: true
+        noise_scheduler: "flowmatch"
+        timestep_type: "weighted"
+        content_or_style: "balanced"
+        optimizer: "adamw8bit"
+        optimizer_params:
+          weight_decay: 0.0001
+        lr: 0.0001
+        dtype: bf16
+        cache_text_embeddings: false
+        unload_text_encoder: false
+        skip_first_sample: false
+        ema_config:
+          use_ema: false
+      model:
+        name_or_path: "Tongyi-MAI/Z-Image"
+        arch: "zimage"
+        # 24-GB-Karte: so lassen (qfloat8, wie beim funktionierenden Gesichts-LoRA v2).
+        # 48-GB-Karte: quantize: false setzen = volle bf16-Präzision (nur nach Rückfrage ändern).
+        quantize: true
+        qtype: "qfloat8"
+        quantize_te: true
+        qtype_te: "qfloat8"
+        low_vram: false
+      sample:
+        sampler: "flowmatch"
+        sample_every: 500
+        width: 1024
+        height: 1280
+        # guidance_scale 4 entspricht CFG 4 in ComfyUI (ai-toolkit rechnet intern -1 für Z-Image)
+        guidance_scale: 4
+        sample_steps: 30
+        seed: 42
+        walk_seed: true
+        neg: "plastic skin, airbrushed skin, glossy skin, lip gloss, heavy makeup, cgi, 3d render, illustration, blurry, deformed hands, extra fingers, bad anatomy, cropped head, headless, watermark, text"
+        prompts:
+          - "mlnchar, close-up portrait, soft daylight from a window, natural minimal makeup, matte skin, neutral expression, smartphone photo"
+          - "mlnchar, head and shoulders portrait, smiling slightly, outdoor cafe terrace, overcast daylight, candid smartphone photo"
+          - "mlnchar, full body photo, standing in a bright living room, fitted white t-shirt and blue jeans, front view, natural light, smartphone photo"
+          - "mlnchar, full body photo, standing on a city sidewalk, black fitted dress, side view, afternoon sun, candid street snapshot"
+          - "mlnchar, full body photo, back view, looking over her shoulder, beige sweatpants and a cropped top, in a gym, natural light, smartphone photo"
+          - "mlnchar, sitting on a sofa, knees up, grey hoodie, evening lamp light, casual phone photo"
+meta:
+  name: "[name]"
+  version: "1.0"

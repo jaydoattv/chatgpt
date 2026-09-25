@@ -1,0 +1,8 @@
+# Checkpoint-Test: immer dieselben 6 Prompts mit denselben Seeds (--seed-start 1000),
+# damit sich die Zwischenstände des LoRAs direkt vergleichen lassen.
+mlnchar, close-up portrait of a 25-year-old woman, looking into the camera, soft window light, natural minimal makeup, matte skin, realistic skin texture with visible pores, smartphone photo
+mlnchar, head and shoulders portrait of a 25-year-old woman, laughing, sitting at an outdoor cafe table, overcast daylight, candid smartphone photo
+mlnchar, half body photo of a 25-year-old woman, fitted black long-sleeve top, standing in a hotel hallway, warm ceiling lights, casual phone snapshot
+mlnchar, full body photo of a 25-year-old woman, standing in a bright living room, fitted white t-shirt and light blue jeans, front view, natural light, smartphone photo
+mlnchar, full body photo of a 25-year-old woman, walking on a city sidewalk, tight black midi dress, side view, afternoon sun, candid street snapshot
+mlnchar, full body photo of a 25-year-old woman, back view, looking over her shoulder, grey leggings and a cropped sports top, in a gym, natural light, smartphone photo

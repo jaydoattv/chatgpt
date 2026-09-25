@@ -1,0 +1,33 @@
+# Runde 1: 24 Szenen × 4 Bilder = 96 Bilder. Mischung aus Porträt, Halbkörper und Ganzkörper,
+# damit genug Material für Posts UND für den Datensatz von Runde 2 entsteht.
+# Regeln: Aufnahmesituation beschreiben, keine Schönheitswörter, keine Glanz-Wörter, eine Person.
+
+# Porträts
+mlnchar, close-up portrait of a 25-year-old woman, morning light from a window, messy hair, no makeup look, matte skin, realistic skin texture with visible pores, shot on iPhone
+mlnchar, close-up selfie of a 25-year-old woman in a car, daylight through the windshield, seatbelt visible, relaxed smile, natural makeup, smartphone front camera
+mlnchar, head and shoulders portrait of a 25-year-old woman, sitting in a cozy cafe, holding a cappuccino, soft daylight, candid photo taken by a friend
+mlnchar, close-up portrait of a 25-year-old woman outdoors, golden hour sunlight, hair moving in the wind, natural makeup, slight squint, phone photo
+mlnchar, head and shoulders portrait of a 25-year-old woman in a restaurant at night, warm candle light, black top, subtle smile, slightly grainy phone photo
+mlnchar, close-up portrait of a 25-year-old woman in a bathroom mirror, getting ready, towel on her shoulders, bright vanity lights, casual snapshot
+
+# Halbkörper
+mlnchar, half body photo of a 25-year-old woman, fitted white tank top, standing on a balcony with city view, afternoon sun, candid smartphone photo
+mlnchar, half body mirror selfie of a 25-year-old woman, fitted beige knit dress, phone in hand, bedroom mirror, daylight, casual snapshot
+mlnchar, half body photo of a 25-year-old woman, black leather jacket over a white top, standing in front of a graffiti wall, overcast daylight, street photo
+mlnchar, half body photo of a 25-year-old woman, sitting at a bar counter, satin slip top, dim warm lights, candid photo taken by a friend
+mlnchar, half body photo of a 25-year-old woman, oversized grey hoodie, sitting on a sofa with her legs pulled up, evening lamp light, cozy phone photo
+mlnchar, half body photo of a 25-year-old woman, sports bra and zip jacket, after a workout in a gym, natural light, slightly sweaty, smartphone photo
+
+# Ganzkörper
+mlnchar, full body photo of a 25-year-old woman, standing in a bright apartment kitchen, fitted beige ribbed top and light blue high-waisted jeans, relaxed pose, soft window light, shot on iPhone
+mlnchar, full body mirror selfie of a 25-year-old woman, tight black bodycon dress and heels, hallway mirror, evening, phone flash, casual snapshot
+mlnchar, full body photo of a 25-year-old woman, walking across a sunny plaza, white summer dress, side view, candid street photo
+mlnchar, full body photo of a 25-year-old woman, back view, looking over her shoulder, high-waisted jeans and a cropped white top, standing in a park, afternoon light, phone photo
+mlnchar, full body photo of a 25-year-old woman, standing at the beach, black bikini, late afternoon sun, wet sand, candid vacation photo
+mlnchar, full body photo of a 25-year-old woman, sitting on the edge of a hotel bed, silk pajama set, morning light, casual phone snapshot
+mlnchar, full body photo of a 25-year-old woman, grey matching leggings and sports top, standing in a gym next to the dumbbell rack, front view, smartphone photo
+mlnchar, full body photo of a 25-year-old woman, red fitted mini dress, standing on a rooftop terrace at sunset, city skyline behind her, photo taken by a friend
+mlnchar, full body photo of a 25-year-old woman, walking out of a boutique holding shopping bags, fitted camel coat and jeans, daylight, candid street photo
+mlnchar, full body photo of a 25-year-old woman, leaning against a white car, denim shorts and a fitted black top, summer daylight, side view, phone photo
+mlnchar, full body photo of a 25-year-old woman, standing by a hotel pool, one-piece swimsuit, bright midday sun, relaxed pose, vacation snapshot
+mlnchar, full body photo of a 25-year-old woman, sitting on stone steps in an old town street, beige linen outfit, soft overcast light, candid photo

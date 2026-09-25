@@ -29,7 +29,9 @@ Wenn deine Bilder glatte "AI-Haut" haben, lernt das LoRA genau diesen Look.
 - **30–40 Bilder**, mindestens 1024 px an der kurzen Seite
 - **Mischung**: ca. 40 % Gesicht nah, 35 % Oberkörper, 25 % Ganzkörper
 - **Vielfalt**: verschiedene Outfits, Orte, Licht (Tageslicht, Innenraum, abends), Blickrichtungen
-- **Raus damit**: kaputte Hände, verzerrte Zähne/Augen, Plastik-Haut, Beinahe-Duplikate,
+- **Pflicht**: mindestens 10–15 Ganzkörper- bzw. Oberkörperbilder, auf denen das Gesicht korrekt ist
+  (falls nicht vorhanden: erst mit Abschnitt 3b erzeugen)
+- **Raus damit**: Face-Swap-Ergebnisse, kaputte Hände, verzerrte Zähne/Augen, Plastik-Haut, Beinahe-Duplikate,
   Bilder, auf denen das Gesicht nur "ähnlich" ist
 - **Trigger-Wort** festlegen: ein Fantasiewort, z. B. `j4sm1n`, und in STATUS.md eintragen
 
@@ -79,6 +81,66 @@ Prüfe danach, ob das Trigger-Wort vorne steht.
    - gut: `smartphone photo, natural window light, slight grain, candid, unposed`
    - schlecht: `masterpiece, 8k, perfect skin, ultra detailed, beautiful`
 6. Mit gutem Bild: Workflow speichern (Workflow → Save). Den brauchst du ab jetzt immer.
+
+---
+
+## 3b. Gesicht + Körper in einem Bild und echter Foto-Look
+
+### Warum Gesicht allein und Körper allein klappen, zusammen aber nicht
+- **Das Gesicht ist zu klein:** Bei Ganzkörper-Bildern belegt es nur ca. 5–10 % der Pixel. Das Modell hat dort
+  kaum Platz für Details. Die Identität verschwimmt, und die Haut wird glatt und künstlich.
+- **Face-Swap ist die typische Fehlerquelle:** ReActor/InsightFace arbeiten intern mit nur 128 px.
+  Das Ergebnis ist ein weiches Gesicht, das nicht zu Licht, Hautton und Körnung des Körpers passt.
+  Genau das erkennt das Auge sofort als "fake".
+- **Der Datensatz enthält die Kombination nicht:** Das LoRA kann nur lernen, was es gesehen hat.
+  Sind im Dataset nur Gesichter ODER Körper, lernt es nie beide zusammen.
+
+### Lösung A: Datensatz reparieren (vor dem Training)
+- Mindestens **10–15 Ganzkörper- und Oberkörperbilder**, auf denen das Gesicht **korrekt** ist.
+  Die erzeugst du mit Lösung B und nimmst sie danach ins Dataset auf.
+- Keine Face-Swap-Ergebnisse im Dataset, denn das LoRA lernt den Swap-Look mit.
+
+### Lösung B: Zwei Durchgänge beim Generieren (FaceDetailer)
+Standardverfahren für Ganzkörperbilder:
+1. **Durchgang 1**: das ganze Bild in hoher Auflösung generieren, z. B. 1088×1920 (Hochformat), mit LoRA.
+2. **Durchgang 2**: Der FaceDetailer erkennt das Gesicht, schneidet es aus, generiert es in hoher Auflösung
+   mit **demselben Modell und derselben LoRA** neu und setzt es nahtlos zurück.
+
+Einrichtung:
+- ComfyUI → Manager → Custom Nodes → **"ComfyUI Impact Pack"** und **"ComfyUI Impact Subpack"** installieren, ComfyUI neu starten.
+- Node **FaceDetailer** hinter den VAE Decode hängen. Model, CLIP, VAE und Prompt kommen vom Haupt-Workflow, inklusive LoRA.
+- Detector: **UltralyticsDetectorProvider** → `bbox/face_yolov8m.pt`
+- Startwerte:
+  - `guide_size`: 768
+  - `denoise`: 0.35 (0.3–0.45 testen; höher = mehr LoRA-Gesicht, aber Risiko einer Naht)
+  - `steps` und `cfg`: wie im Haupt-Workflow (bei Z-Image Turbo 8 Steps, CFG 1)
+  - `feather`: 10
+- Für Hände dasselbe mit `bbox/hand_yolov8s.pt` als zweiter FaceDetailer.
+
+Weil Gesicht und Körper vom selben Modell kommen, passen Hautton, Licht und Körnung zusammen.
+**Kein Face-Swap mehr nötig.**
+
+### Echtheit: Checkliste gegen den AI-Look
+**Prompt**
+- Beschreibe eine Aufnahmesituation: `candid smartphone photo, taken by a friend, natural window light,
+  slightly overexposed background, visible skin pores, flyaway hair`
+- Streiche: `masterpiece, 8k, ultra detailed, perfect skin, flawless, beautiful, cinematic`
+- Normale Umgebungen (Küche, Auto, Fitnessstudio, Straße) wirken echter als Studio-Hintergründe.
+
+**Bild**
+- Handykameras haben meist alles scharf. Starkes Bokeh verrät oft AI.
+- Kleine Unperfektheiten zulassen: Falten in der Kleidung, unordentliche Haare, schiefe Haltung.
+- Nicht zu starken Kontrast und nicht zu gesättigte Farben verwenden.
+
+**Nachbearbeitung** (als letzte Nodes im Workflow oder in Lightroom/Photoshop)
+- Leichtes Filmkorn bzw. Rauschen: ComfyUI-Node "Image Film Grain" oder in Lightroom Körnung 10–20
+- Nicht nachschärfen, AI-Bilder sind meist schon zu scharf
+- Als JPEG mit Qualität ca. 85–90 exportieren, nicht als PNG. Echte Handyfotos sind komprimiert.
+- Optional: hochskalieren mit **SeedVR2** (Custom Node "ComfyUI-SeedVR2_VideoUpscaler"). Das ergänzt realistische Hautstruktur.
+  Danach das Korn hinzufügen, nicht davor.
+
+**Test**: Zeig das Bild auf dem Handy in Instagram-Größe jemandem, der nichts davon weiß.
+Nicht in 200 % Zoom am PC beurteilen.
 
 ---
 

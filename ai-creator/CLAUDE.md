@@ -22,10 +22,18 @@ Maßstab: Ergebnisse dürfen nicht als AI erkennbar sein (Haut, Licht, Hände, A
 Video-Prinzip: Das Startbild kommt aus Schritt 3 (Gesicht stimmt bereits).
 Wan 2.2 animiert es. Erst wenn das Gesicht im Video wegdriftet, wird Schritt 5 gemacht.
 
+## Hauptproblem (Diagnose)
+1. **Echtheit**: Bilder wirken nach AI.
+2. **Gesicht + Körper zusammen** klappt nicht, einzeln schon.
+Ursachen und Lösung: ANLEITUNG.md Abschnitt 3b (zwei Durchgänge mit FaceDetailer,
+Ganzkörperbilder mit korrektem Gesicht ins Dataset, kein Face-Swap, Foto-Nachbearbeitung).
+
 ## Arbeitsregeln für Claude
 1. Erst diagnostizieren, dann bauen. Keine Annahmen aus früheren Chats.
 2. KEINE ComfyUI-Workflow-JSONs und KEINE ai-toolkit-YAMLs von Grund auf schreiben.
    ComfyUI: nur die eingebauten Templates (Menü → Workflow → Browse Templates).
+   Erlaubte Erweiterungen (nur via ComfyUI Manager): Impact Pack + Impact Subpack
+   (FaceDetailer), ComfyUI-SeedVR2_VideoUpscaler. Kein ReActor/Face-Swap.
    ai-toolkit: nur die Web-UI mit Modell-Preset. Die Presets setzen die richtigen
    Defaults (z. B. den Training-Adapter für Z-Image Turbo) automatisch.
 3. Immer nur EIN Schritt. Danach warten, bis der User das Ergebnis bewertet hat.

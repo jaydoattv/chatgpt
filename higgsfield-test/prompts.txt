@@ -1,0 +1,14 @@
+# Higgsfield Soul 2.0 – Charakter "Milena" auswählen, dann Prompt einfügen.
+# Ohne Bademode/Dessous (sonst Sperre). Figur nur mild beschreiben.
+p01: close-up portrait, soft window light, natural minimal makeup, matte skin, visible skin texture, candid smartphone photo
+p02: head and shoulders, laughing at an outdoor cafe table, overcast daylight, photo taken by a friend
+p03: half body, fitted black long-sleeve top, hotel hallway, warm ceiling lights, casual phone snapshot
+p04: full body, slim waist, curvy hips, fitted white t-shirt and light blue high-waisted jeans, bright living room, front view, natural light, smartphone photo
+p05: full body, slim waist, curvy hips, tight black midi dress, walking on a city sidewalk, side view, afternoon sun, street snapshot
+p06: full body, back view looking over her shoulder, high-waisted jeans and cropped white top, park, afternoon light, phone photo
+p07: full body mirror selfie, fitted beige knit dress, bedroom mirror, daylight, casual snapshot
+p08: half body, satin top, sitting at a bar counter, dim warm lights, candid photo
+p09: full body, slim waist, curvy hips, red fitted mini dress, rooftop terrace at sunset, city skyline, photo taken by a friend
+p10: full body, camel coat and jeans, walking out of a boutique with shopping bags, daylight, candid street photo
+p11: close-up selfie in a car, daylight through the windshield, seatbelt visible, relaxed smile
+p12: full body, leaning against a white car, denim shorts and fitted black top, summer daylight, side view, phone photo
